@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const pool = require('../db');
 const fs = require('fs');
-const { PDFParse } = require('pdf-parse');
+const pdf = require('pdf-parse');
 
 // Helper to generate JWT Token
 const generateToken = (id) => {
@@ -81,12 +81,8 @@ exports.registerStep3 = async (req, res) => {
     // Process PDF Content to extract text
     if (req.file.mimetype === 'application/pdf') {
       const dataBuffer = fs.readFileSync(req.file.path);
-      const parser = new PDFParse({ data: new Uint8Array(dataBuffer) });
-      const parsedData = await parser.getText();
+      const parsedData = await pdf(dataBuffer);
       extractedText = parsedData.text;
-      if (typeof parser.destroy === 'function') {
-        await parser.destroy();
-      }
     } else {
       // Stub for Docx processing or others
       extractedText = 'Extracted text from docx stub';
@@ -114,7 +110,11 @@ exports.registerStep3 = async (req, res) => {
     res.status(200).json({ message: 'Step 3 complete. Resume processed.', documentProcessed: true });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Server error processing document' });
+    res.status(500).json({ 
+      error: 'Server error processing document',
+      details: error.message,
+      stack: error.stack
+    });
   }
 };
 
