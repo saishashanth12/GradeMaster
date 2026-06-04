@@ -1,0 +1,28 @@
+@import "./theme.css";
+@import "tailwindcss";
+
+@theme {
+  --color-electric-blue: var(--electric-blue);
+  --color-primary-navy: var(--primary-navy);
+  --color-surface: var(--surface-white);
+  --color-accent-rose: var(--accent-rose);
+  --color-border-subtle: var(--border-grey);
+  
+  --font-outfit: "Outfit", sans-serif;
+  --font-inter: "Inter", sans-serif;
+
+  --shadow-sm: var(--card-shadow);
+  --shadow-md: 0 10px 25px -3px rgba(99, 102, 241, 0.1);
+  --shadow-card: var(--card-shadow);
+}
+
+body {
+  font-family: var(--font-inter);
+  background-color: var(--background-white);
+  color: var(--primary-navy);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-outfit);
+}
