@@ -1,14 +1,3 @@
-// Polyfill browser globals for pdf-parse compatibility in Node cloud environments
-if (typeof global.DOMMatrix === 'undefined') {
-  global.DOMMatrix = class DOMMatrix {};
-}
-if (typeof global.ImageData === 'undefined') {
-  global.ImageData = class ImageData {};
-}
-if (typeof global.Path2D === 'undefined') {
-  global.Path2D = class Path2D {};
-}
-
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
