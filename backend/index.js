@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const { Pool } = require('pg');
+const pool = require('./db');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -9,15 +9,6 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(cors());
 app.use(express.json());
-
-// Database configuration
-const pool = new Pool({
-  user: process.env.DB_USER || 'postgres',
-  host: process.env.DB_HOST || 'localhost',
-  database: process.env.DB_NAME || 'GMdatabase',
-  password: process.env.DB_PASSWORD || 'Saiss@1202',
-  port: process.env.DB_PORT || 5432,
-});
 
 // Test Database connection
 pool.connect((err, client, release) => {
